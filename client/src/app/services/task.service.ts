@@ -6,10 +6,11 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private apiUrl = 'http://localhost:5000/api/tasks';
+  private apiUrl = 'http://localhost:5000/api/tasks';// Backend URL
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
+// Function to get auth headers with token
   private getAuthHeaders() {
     return {
       headers: new HttpHeaders({
@@ -17,19 +18,20 @@ export class TaskService {
       })
     };
   }
-
+// Function to get all tasks
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl, this.getAuthHeaders());
   }
-
+//  Function to add a new task
   addTask(task: Task) {
     return this.http.post(this.apiUrl, task, this.getAuthHeaders());
   }
 
+// Function to update a task
   updateTask(task: Task) {
     return this.http.put(`${this.apiUrl}/${task.taskId}`, task, this.getAuthHeaders());
   }
-
+// Function to delete a task
   deleteTask(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`, this.getAuthHeaders());
   }

@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 
 
 dotenv.config();
+
+// MSSQL configuration
 const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
@@ -15,7 +17,7 @@ const config = {
 };   
 
 
- 
+ // Connect to MSSQL
 const connectDB = async () => {
   try { 
     await sql.connect(config);

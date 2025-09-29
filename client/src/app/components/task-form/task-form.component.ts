@@ -16,6 +16,7 @@ export class TaskFormComponent {
 @Input() task: Task = { title: '', description: '', dueDate: '', priority: 'Low', status: 'Pending' };
   @Output() save = new EventEmitter<Task>();
 
+  // Function to handle form submission
   onSubmit() {
     this.save.emit(this.task);
     this.task = { title: '', description: '', dueDate: '', priority: 'Low', status: 'Pending' };

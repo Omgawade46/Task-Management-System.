@@ -1,4 +1,4 @@
-export interface Task {
+export interface Task { // Define Task interface
   taskId?: number;
   title: string;
   description: string;

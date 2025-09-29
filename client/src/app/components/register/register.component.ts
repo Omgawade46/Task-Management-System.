@@ -20,6 +20,7 @@ export class RegisterComponent {
 
   constructor(private auth: AuthService, private router: Router) {}
 
+  // Function to handle registration
   onRegister() {
     this.auth.register(this.name, this.email, this.password).subscribe({
       next: () => {

@@ -17,7 +17,8 @@ email = '';
   error = '';
 
   constructor(private auth: AuthService, private router: Router) {}
-
+  
+// Function to handle login
   onLogin() {
     this.auth.login(this.email, this.password).subscribe({
       next: (res) => {
