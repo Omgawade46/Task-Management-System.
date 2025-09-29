@@ -1,0 +1,65 @@
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-600 p-6">
+  <div class="bg-white shadow-2xl rounded-2xl w-full max-w-md p-8">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Register</h2>
+
+    <form (ngSubmit)="onRegister()" class="space-y-5">
+      <!-- Name -->
+      <div>
+        <input
+          [(ngModel)]="name"
+          name="name"
+          type="text"
+          placeholder="Full Name"
+          required
+          class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+          class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <input
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          placeholder="Password"
+          required
+          class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+        />
+      </div>
+
+      <!-- Error Message -->
+      <p *ngIf="error" class="text-red-500 text-sm text-center">{{ error }}</p>
+
+      <!-- Success Message -->
+      <p *ngIf="success" class="text-green-600 text-sm text-center">{{ success }}</p>
+
+      <!-- Register Button -->
+      <button
+        type="submit"
+        class="w-full py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-transform transform hover:scale-105"
+      >
+        Register
+      </button>
+    </form>
+
+    <!-- Login Link -->
+    <p class="text-center text-gray-600 mt-6">
+      Already registered?
+      <a routerLink="/login" class="text-indigo-600 font-medium hover:underline">
+        Login
+      </a>
+    </p>
+  </div>
+</div>

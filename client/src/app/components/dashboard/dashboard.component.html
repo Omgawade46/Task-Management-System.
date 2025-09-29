@@ -1,0 +1,80 @@
+<div class="p-6">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">My Tasks</h2>
+
+  </div>
+
+  <!-- Task Form -->
+  <div class="mb-6">
+    <app-task-form
+      [task]="selectedTask"
+      (save)="addOrUpdateTask($event)"
+    ></app-task-form>
+  </div>
+
+  <!-- Task Table -->
+  <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+    <table class="w-full border-collapse">
+      <thead class="bg-gray-100 text-gray-700">
+        <tr>
+          <th class="px-4 py-3 text-left">Title</th>
+          <th class="px-4 py-3 text-left">Description</th>
+          <th class="px-4 py-3 text-left">Due Date</th>
+          <th class="px-4 py-3 text-left">Priority</th>
+          <th class="px-4 py-3 text-left">Status</th>
+          <th class="px-4 py-3 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let task of tasks"
+          class="border-b hover:bg-gray-50"
+        >
+          <td class="px-4 py-2">{{ task.title }}</td>
+          <td class="px-4 py-2">{{ task.description }}</td>
+          <td class="px-4 py-2">{{ task.dueDate | date }}</td>
+          <td class="px-4 py-2">
+            <span
+              [ngClass]="{
+                'px-2 py-1 rounded text-xs font-semibold': true,
+                'bg-green-100 text-green-700': task.priority === 'Low',
+                'bg-yellow-100 text-yellow-700': task.priority === 'Medium',
+                'bg-red-100 text-red-700': task.priority === 'High'
+              }"
+            >
+              {{ task.priority }}
+            </span>
+          </td>
+          <td class="px-4 py-2">
+            <span
+              [ngClass]="{
+                'px-2 py-1 rounded text-xs font-semibold': true,
+                'bg-blue-100 text-blue-700': task.status === 'Pending',
+                'bg-purple-100 text-purple-700': task.status === 'In Progress',
+                'bg-gray-200 text-gray-700': task.status === 'Completed'
+              }"
+            >
+              {{ task.status }}
+            </span>
+          </td>
+          <td class="px-4 py-2 text-center space-x-2">
+            <button
+              (click)="editTask(task)"
+              class="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
+            >
+              Edit
+            </button>
+            <button
+              (click)="deleteTask(task.taskId!)"
+              class="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+</div>

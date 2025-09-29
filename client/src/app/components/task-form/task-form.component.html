@@ -1,0 +1,68 @@
+
+<div class="max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+  <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">
+    {{ task.taskId ? '✏️ Edit Task' : '➕ Add Task' }}
+  </h3>
+
+  <form (ngSubmit)="onSubmit()" class="space-y-4">
+    <!-- Title -->
+    <input
+      [(ngModel)]="task.title"
+      name="title"
+      placeholder="Title"
+      required
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+    />
+
+    <!-- Description -->
+    <textarea
+      [(ngModel)]="task.description"
+      name="description"
+      placeholder="Description"
+      required
+      rows="3"
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none resize-none"
+    ></textarea>
+
+    <!-- Due Date -->
+    <input
+      [(ngModel)]="task.dueDate"
+      name="dueDate"
+      type="date"
+      required
+      [min]="today"
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+    />
+
+    <!-- Priority -->
+    <select
+      [(ngModel)]="task.priority"
+      name="priority"
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+    >
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+
+    <!-- Status -->
+    <select
+      [(ngModel)]="task.status"
+      name="status"
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+    >
+      <option>Pending</option>
+      <option>In Progress</option>
+      <option>Completed</option>
+    </select>
+
+    <!-- Save Button -->
+    <button
+      type="submit"
+      class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-lg transition duration-200"
+    >
+      💾 Save Task
+    </button>
+  </form>
+</div>
+
