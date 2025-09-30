@@ -13,12 +13,12 @@ export class TaskFormComponent {
 
   today: string = new Date().toISOString().split('T')[0]; // "YYYY-MM-DD"
 
-@Input() task: Task = { title: '', description: '', dueDate: '', priority: 'Low', status: 'Pending' };
+@Input() task: Task = { title: '', description: '', dueDate: '  {today} ', priority: 'Low', status: 'Pending' };
   @Output() save = new EventEmitter<Task>();
 
   // Function to handle form submission
   onSubmit() {
     this.save.emit(this.task);
-    this.task = { title: '', description: '', dueDate: '', priority: 'Low', status: 'Pending' };
+    this.task = { title: '', description: '', dueDate: '{ today } ', priority: 'Low', status: 'Pending' };
   }
 }

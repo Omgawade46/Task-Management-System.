@@ -1,18 +1,23 @@
-
 <div class="max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-200">
   <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">
     {{ task.taskId ? '✏️ Edit Task' : '➕ Add Task' }}
   </h3>
 
-  <form (ngSubmit)="onSubmit()" class="space-y-4">
+  <form #taskForm="ngForm" (ngSubmit)="onSubmit()" class="space-y-4">
     <!-- Title -->
     <input
       [(ngModel)]="task.title"
       name="title"
       placeholder="Title"
       required
+      minlength="3"
+      #title="ngModel"
       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
     />
+    <div class="text-red-500 text-sm" *ngIf="title.invalid && (title.dirty || title.touched)">
+      <span *ngIf="title.errors?.['required']">Title is required.</span>
+      <span *ngIf="title.errors?.['minlength']">Title must be at least 3 characters.</span>
+    </div>
 
     <!-- Description -->
     <textarea
@@ -20,9 +25,15 @@
       name="description"
       placeholder="Description"
       required
+      minlength="5"
       rows="3"
+      #description="ngModel"
       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none resize-none"
     ></textarea>
+    <div class="text-red-500 text-sm" *ngIf="description.invalid && (description.dirty || description.touched)">
+      <span *ngIf="description.errors?.['required']">Description is required.</span>
+      <span *ngIf="description.errors?.['minlength']">Description must be at least 5 characters.</span>
+    </div>
 
     <!-- Due Date -->
     <input
@@ -31,38 +42,54 @@
       type="date"
       required
       [min]="today"
+      #dueDate="ngModel"
       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
     />
+    <div class="text-red-500 text-sm" *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)">
+      <span *ngIf="dueDate.errors?.['required']">Due Date is required.</span>
+    </div>
 
     <!-- Priority -->
     <select
       [(ngModel)]="task.priority"
       name="priority"
+      required
+      #priority="ngModel"
       class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-400 focus:outline-none"
     >
+      <option value="" disabled selected>-- Select Priority --</option>
       <option>Low</option>
       <option>Medium</option>
       <option>High</option>
     </select>
+    <div class="text-red-500 text-sm" *ngIf="priority.invalid && (priority.dirty || priority.touched)">
+      <span>Priority is required.</span>
+    </div>
 
     <!-- Status -->
     <select
       [(ngModel)]="task.status"
       name="status"
+      required
+      #status="ngModel"
       class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-400 focus:outline-none"
     >
+      <option value="" disabled selected>-- Select Status --</option>
       <option>Pending</option>
       <option>In Progress</option>
       <option>Completed</option>
     </select>
+    <div class="text-red-500 text-sm" *ngIf="status.invalid && (status.dirty || status.touched)">
+      <span>Status is required.</span>
+    </div>
 
     <!-- Save Button -->
     <button
       type="submit"
-      class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-lg transition duration-200"
+      [disabled]="taskForm.invalid"
+      class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       💾 Save Task
     </button>
   </form>
 </div>
-
